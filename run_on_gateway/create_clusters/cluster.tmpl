@@ -1,0 +1,32 @@
+# Contains value common for all clusters, modified from the Kubespray template.
+#   Create one cluster-x.tfvars for each cluster you would like to create where
+#   x is an ascending integer starting from 1, then change the values here
+#   to your liking.
+
+# The name of the cloud as given in the clouds.yml file
+cloud_name = "openstack"
+
+# Name of OpenStack items
+cluster_name = "cluster-x"
+network_name = "net-cluster-x"
+
+# Subnet CIDR for the cluster local network
+#   this should be unique amonst all clusters
+subnet_cidr = "10.0.x.0/24"
+
+# Gateway IP on the cluster local network
+fixed_gw_ip = "10.0.x.1"
+
+# SSH key to use for access to nodes
+public_key_path = "~/.ssh/cluster-key.pub"
+
+# image to use for masters and nodes
+image_name = "Ubuntu 18.04"
+
+# settings for the master nodes
+number_of_k8s_masters = 1
+flavor_id_k8s_masters = ""
+
+# settings for the worker nodes
+number_of_k8s_nodes = 3
+flavor_id_k8s_nodes = ""

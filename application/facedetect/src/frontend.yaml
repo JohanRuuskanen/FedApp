@@ -1,0 +1,82 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: facedetect
+  labels:
+    app: frontend
+spec:
+  type: NodePort
+  ports:
+  - port: 5000
+    nodePort: 31111
+    targetPort: http
+    protocol: TCP
+    name: http-frontend
+  selector:
+    app: frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: facedetect
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      imagePullSecrets:
+        - name: gitlab-auth
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - backend
+            topologyKey: "kubernetes.io/hostname"
+            namespaces:
+              - facedetect
+      containers:
+      - name:  frontend
+        # Insert the path to the image on the registry 
+        #  e.g. registry.gitlab.com/username/images/frontend:latest
+        image: "" 
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 5000
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: facedetect-dstrule
+  namespace: facedetect
+spec:
+  host: backend.facedetect.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+    loadBalancer:
+      simple: RANDOM
+    outlierDetection:
+      consecutiveGatewayErrors: 5
+      interval: 10s
+      baseEjectionTime: 6m

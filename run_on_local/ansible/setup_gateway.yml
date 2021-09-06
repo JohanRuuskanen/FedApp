@@ -1,0 +1,88 @@
+- hosts: gateway
+  remote_user: ubuntu
+  
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+  tasks:
+
+  - name: Install apt packages
+    become: true
+    apt:
+      name: ['python3-pip', 'docker.io']
+      update_cache: yes
+
+  - name: Install common pip packages
+    become: true
+    pip:
+      executable: pip3
+      name: [ 'pyyaml==5.1.2',
+              'numpy',
+              'psutil']
+  
+  - name: Install kubectl
+    become: true
+    snap:
+      name: 'kubectl'
+      classic: true
+      channel: 1.21/stable
+  
+  - name: Install helm
+    become: true
+    snap:
+      name: 'helm'
+      classic: true
+      channel: 3.5/stable
+
+  - name: Get terraform
+    script: ./src/get_terraform.sh 0.15.1
+
+  - name: Get kubespray
+    ansible.builtin.git:
+      repo: https://github.com/kubernetes-sigs/kubespray.git
+      dest: /home/ubuntu/kubespray
+      version: v2.15.1
+
+  - name: Install kubespray requirements
+    become: true
+    pip:
+      executable: pip3
+      requirements: /home/ubuntu/kubespray/requirements.txt
+
+  - name: Get istio
+    script: ./src/get_istio.sh 1.9.4
+
+  - name: Add istio to $PATH
+    lineinfile:
+      path: /home/ubuntu/.bashrc
+      regexp: "export PATH="
+      line: export PATH=$PATH:/home/ubuntu/istio-1.9.4/bin
+
+  - name: Add docker group
+    become: true
+    group:
+      name: docker
+      state: present
+
+  - name: Update user to docker group
+    become: true
+    user:
+      name: ubuntu
+      group: docker
+      append: yes
+
+  - name: generate ssh keypair
+    openssh_keypair:
+      path: "~/.ssh/cluster-key"
+
+  - name: Creates open stack directory
+    file:
+      path: /home/ubuntu/.config/openstack
+      state: directory
+
+  - name: copy cloud
+    copy:
+      src: ~/.config/openstack/clouds.yaml
+      dest: /home/ubuntu/.config/openstack/clouds.yaml
+
+

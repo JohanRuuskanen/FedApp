@@ -1,0 +1,30 @@
+- hosts: gateway
+  remote_user: ubuntu
+  vars:
+    ansible_python_interpreter: python3
+  tasks:
+  - name: Create directory for storing tgz
+    delegate_to: localhost
+    file:
+      path: tgz
+      state: directory
+  - name: Compress directories
+    delegate_to: localhost
+    archive:
+      path: "{{ item.path }}"
+      dest: "{{ item.dest }}"
+    with_items:
+      - { path: "../../run_on_gateway", dest: "tgz/run_on_gateway.tgz"}
+      - { path: "../../application", dest: "tgz/application.tgz"}
+  - name: Extract the compressed directories
+    unarchive:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+    with_items:
+      - { src: "tgz/run_on_gateway.tgz", dest: "/home/ubuntu"}
+      - { src: "tgz/application.tgz", dest: "/home/ubuntu"}
+  - name: copy gateway info
+    copy:
+      src: ../gateway.tfvars
+      dest: /home/ubuntu/run_on_gateway/create_clusters
+
