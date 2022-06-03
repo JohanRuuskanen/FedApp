@@ -13,10 +13,10 @@ public_key_path = "/path/to/public/key"
 
 # Settings for the Gateway VM
 #   Image needs to be a recent Ubuntu version, tested with ubuntu-18.04
-#   Flavor recommended large, e.g. 4 vCPUs and 16 GB RAM
+#   Flavor recommended fairly large, e.g. 4 vCPUs and 16 GB RAM
 gateway_name = "gateway"
 gateway_image = "Ubuntu 18.04" 
-gateway_flavor_id = "" 
+gateway_flavor_name = "" 
 
 # External network ID
 external_network_id = ""

@@ -34,7 +34,7 @@ variable "gateway_image" {
   default = ""
 }
 
-variable "gateway_flavor_id" {
+variable "gateway_flavor_name" {
   description = "The amount of vCPUs and RAM to assign the gateway virtual machine"
   default = ""
 }

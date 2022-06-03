@@ -53,18 +53,18 @@ variable "ssh_user_gfs" {
   default     = "ubuntu"
 }
 
-variable "flavor_id_k8s_masters" {
-  description = "Use 'openstack flavor list' command to see what your OpenStack instance uses for IDs"
+variable "flavor_name_k8s_masters" {
+  description = "Use 'openstack flavor list' command to see what your OpenStack instance flavors"
   default     = 3
 }
 
-variable "flavor_id_k8s_nodes" {
-  description = "Use 'openstack flavor list' command to see what your OpenStack instance uses for IDs"
+variable "flavor_name_k8s_nodes" {
+  description = "Use 'openstack flavor list' command to see what your OpenStack instance flavors"
   default     = 3
 }
 
-variable "flavor_id_gfs_nodes" {
-  description = "Use 'openstack flavor list' command to see what your OpenStack instance uses for IDs"
+variable "flavor_name_gfs_nodes" {
+  description = "Use 'openstack flavor list' command to see what your OpenStack instance flavors"
   default     = 3
 }
 

@@ -1,0 +1,20 @@
+
+DELAY
+0, 50, 25
+50, 0, 25
+25, 25, 0
+
+JITTER
+0, 10, 5
+10, 0, 5
+5, 5, 0
+
+CORRELATION
+0, 25, 25
+25, 0, 25
+25, 25, 0
+
+DISTRIBUTION
+normal, pareto, pareto
+pareto, normal, pareto
+pareto, pareto, normal

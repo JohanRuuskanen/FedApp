@@ -130,7 +130,7 @@ resource "openstack_compute_instance_v2" "k8s_master" {
   count             = "${var.number_of_k8s_masters}"
   availability_zone = "${element(var.az_list, count.index)}"
   image_name        = "${var.image_name}"
-  flavor_id         = "${var.flavor_id_k8s_master}"
+  flavor_name         = "${var.flavor_name_k8s_master}"
   key_pair          = "${openstack_compute_keypair_v2.k8s.name}"
 
   network {
@@ -160,7 +160,7 @@ resource "openstack_compute_instance_v2" "k8s_node" {
   count             = "${var.number_of_k8s_nodes}"
   availability_zone = "${element(var.az_list, count.index)}"
   image_name        = "${var.image_name}"
-  flavor_id         = "${var.flavor_id_k8s_node}"
+  flavor_name         = "${var.flavor_name_k8s_node}"
   key_pair          = "${openstack_compute_keypair_v2.k8s.name}"
 
   network {
@@ -186,7 +186,7 @@ resource "openstack_compute_instance_v2" "glusterfs_node" {
   count             = "${var.number_of_gfs_nodes}"
   availability_zone = "${element(var.az_list, count.index)}"
   image_name        = "${var.image_name_gfs}"
-  flavor_id         = "${var.flavor_id_gfs_node}"
+  flavor_name         = "${var.flavor_name_gfs_node}"
   key_pair          = "${openstack_compute_keypair_v2.k8s.name}"
 
   network {

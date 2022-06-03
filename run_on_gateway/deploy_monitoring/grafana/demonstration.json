@@ -521,7 +521,7 @@
         "y": 9
       },
       "hiddenSeries": false,
-      "id": 20,
+      "id": 31,
       "legend": {
         "avg": false,
         "current": false,
@@ -562,7 +562,7 @@
         {
           "$$hashKey": "object:237",
           "exemplar": true,
-          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"facedetect\", container=\"backend\"}[2m]))",
+          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"facedetect\", container=\"backend-v2\"}[2m]))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -675,7 +675,7 @@
         {
           "$$hashKey": "object:237",
           "exemplar": true,
-          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"facedetect\", container=\"backend\"}[2m]))",
+          "expr": "sum(irate(container_cpu_usage_seconds_total{namespace=\"facedetect\", container=\"backend-v2\"}[2m]))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -788,7 +788,7 @@
         {
           "$$hashKey": "object:552",
           "exemplar": true,
-          "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"facedetect\", pod=~\"backend.*\"}[2m]))",
+          "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"facedetect\", pod=~\"backend-v2.*\"}[2m]))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -860,7 +860,7 @@
         "y": 18
       },
       "hiddenSeries": false,
-      "id": 29,
+      "id": 33,
       "legend": {
         "avg": false,
         "current": false,
@@ -901,7 +901,7 @@
         {
           "$$hashKey": "object:552",
           "exemplar": true,
-          "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"facedetect\", pod=~\"backend.*\"}[2m]))",
+          "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"facedetect\", pod=~\"backend-v2.*\"}[2m]))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -1014,7 +1014,7 @@
         {
           "$$hashKey": "object:552",
           "exemplar": true,
-          "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"facedetect\", pod=~\"backend.*\"}[2m]))",
+          "expr": "sum(irate(container_network_receive_bytes_total{namespace=\"facedetect\", pod=~\"backend-v2.*\"}[2m]))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -1072,6 +1072,402 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "cluster-1",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 7,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 35,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": true,
+      "targets": [
+        {
+          "$$hashKey": "object:356",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"frontend\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"frontend\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Frontend",
+          "refId": "A"
+        },
+        {
+          "$$hashKey": "object:530",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"backend-v1\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"backend-v1\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Backend v1",
+          "refId": "B"
+        },
+        {
+          "$$hashKey": "object:552",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"backend-v2\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"backend-v2\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Backend v2",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"storage\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"storage\"}[2m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Storage",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Cluster 1 - read/writes",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1065",
+          "decimals": null,
+          "format": "short",
+          "label": "Bytes",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1066",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "cluster-2",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 7,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 8,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 36,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": true,
+      "targets": [
+        {
+          "$$hashKey": "object:356",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"frontend\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"frontend\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Frontend",
+          "refId": "A"
+        },
+        {
+          "$$hashKey": "object:530",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"backend-v1\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"backend-v1\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Backend v1",
+          "refId": "B"
+        },
+        {
+          "$$hashKey": "object:552",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"backend-v2\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"backend-v2\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Backend v2",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"storage\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"storage\"}[2m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Storage",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Cluster 2 - read/writes",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1065",
+          "decimals": null,
+          "format": "short",
+          "label": "Bytes",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1066",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "cluster-3",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 7,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 37,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 0,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.5",
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": true,
+      "targets": [
+        {
+          "$$hashKey": "object:356",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"frontend\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"frontend\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Frontend",
+          "refId": "A"
+        },
+        {
+          "$$hashKey": "object:530",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"backend-v1\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"backend-v1\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Backend v1",
+          "refId": "B"
+        },
+        {
+          "$$hashKey": "object:552",
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"backend-v2\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"backend-v2\"}[2m]))",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Backend v2",
+          "refId": "C"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(irate(container_fs_writes_total{namespace=\"facedetect\", container=\"storage\"}[2m])) + sum(irate(container_fs_reads_total{namespace=\"facedetect\", container=\"storage\"}[2m]))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Storage",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Cluster 2 - read/writes",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1065",
+          "decimals": null,
+          "format": "short",
+          "label": "Bytes",
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1066",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "-- Mixed --",
       "fieldConfig": {
         "defaults": {},
@@ -1083,7 +1479,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 27
+        "y": 36
       },
       "hiddenSeries": false,
       "id": 27,
@@ -1203,7 +1599,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 27
+        "y": 36
       },
       "hiddenSeries": false,
       "id": 28,

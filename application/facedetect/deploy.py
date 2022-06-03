@@ -40,10 +40,8 @@ def generate_nginxconf(clusters):
     ips = retrieve_cluster_IPs(clusters)
 
     us_api = ""
-    us_website = ""
     for frontend_cluster in FRONTEND_CLUSTERS:
         us_api += "server %s:31111;\n" % ips[frontend_cluster]
-        us_website += "server %s:32222;\n" % ips[frontend_cluster]
 
     conf = """
     user    nginx;
@@ -58,22 +56,19 @@ def generate_nginxconf(clusters):
             proxy_http_version 1.1;
 
             client_max_body_size 12M;
-            upstream website {
-                %s
-            }
             upstream api {
                 %s
             }
 
             server {
-                    %s
+                    listen 3001;
 
-                    location /api/ {
+                    location / {
                             proxy_pass http://api/;
                     }
             }
     }
-    """ % (us_website, us_api, LISTEN)
+    """ % (us_api)
 
     with open("nginx.conf", "w") as f:
         f.write(conf)
@@ -82,8 +77,7 @@ def generate_nginxconf(clusters):
 def launch_nginx():
     os.system("docker run -d  --network=host \
         -v /home/ubuntu/application/facedetect/nginx.conf:/etc/nginx/nginx.conf:ro \
-        %s \
-        --name=nginx_loadbalancer nginx:1.17.10" % CERT_FOLDER)
+        --name=nginx_loadbalancer nginx:1.17.10")
 
 if __name__ == '__main__':
 

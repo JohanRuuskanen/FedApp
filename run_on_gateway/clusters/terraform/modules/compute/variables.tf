@@ -24,11 +24,11 @@ variable "ssh_user" {}
 
 variable "ssh_user_gfs" {}
 
-variable "flavor_id_k8s_master" {}
+variable "flavor_name_k8s_master" {}
 
-variable "flavor_id_k8s_node" {}
+variable "flavor_name_k8s_node" {}
 
-variable "flavor_id_gfs_node" {}
+variable "flavor_name_gfs_node" {}
 
 variable "network_name" {}
 

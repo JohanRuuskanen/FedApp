@@ -7,22 +7,20 @@ import os
 import time
 from glob import glob
 
-import random
-
 import aiohttp
 import asyncio
 
 import numpy as np
 
 ## Settings
-url = "http://GATEWAY_IP/api/" # Final slash important! Insert the IP to the gateway
+url = "http://localhost:3001/"
 dt = 0.1 # time between posted images
 max_conn = 20 # Maximum allowed simultaneous connections
 T = 2000 # Simulation time
 
 # Need to supply the load generator with a data folder with images of faces to detect, 
 # one example to use is the UMass face detection data set (http://vis-www.cs.umass.edu/fddb/)
-data_path = "" 
+data_path = "/home/ubuntu/application/data" 
 
 
 async def postimage(session, url, path):

@@ -7,3 +7,26 @@ spec:
       multiCluster:
         clusterName: tmp_cluster
       network: tmp_network
+  meshConfig:
+    accessLogFile: "/dev/stdout"
+    accessLogEncoding: "JSON"
+    accessLogFormat: |
+      {
+        "accessLogFormat": "{
+          \"bytes_sent\": \"%BYTES_SENT%\",
+          \"bytes_received\": \"%BYTES_RECEIVED%\",
+          \"downstream_pod_ip\": \"%REQ(X-DOWNSTREAM-IP)%\",
+          \"duration\": \"%DURATION%\",
+          \"duration_upstream\": \"%RESP(X-ENVOY-UPSTREAM-SERVICE-TIME)%\",
+          \"method_call\": \"%REQ(X-ENVOY-ORIGINAL-PATH?:PATH)%\",
+          \"req_id\": \"%REQ(X-REQUEST-ID)%\",
+          \"response_code\": \"%RESPONSE_CODE%\",
+          \"timestamp\": \"%START_TIME%\",
+          \"upstream_cluster\": \"%UPSTREAM_CLUSTER%\",
+          \"upstream_pod_ip\": \"%RESP(X-UPSTREAM-IP)%\"
+        }"
+      }
+    enableTracing: true
+    defaultConfig:
+      tracing:
+        sampling: 100.0

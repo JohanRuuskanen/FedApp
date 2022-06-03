@@ -1,6 +1,6 @@
 ## Setup the cluster software stacks
 
-To setup the sandbox clusters, do the following steps in order. All the steps are run on the Gateway VM.
+To setup the testbed clusters, do the following steps in order. All the steps are run on the Gateway VM.
 
 ### For the virtual clusters
 The virtualized infrastructure for the clusters is created from the  `run_on_gateway/create_clusters` folder.
@@ -10,7 +10,7 @@ The virtualized infrastructure for the clusters is created from the  `run_on_gat
 - Change the variables in each `create_clusters/cluster-x.tfvars` to your liking. The things required to change are the 
 - * The name of the cluster/network
   * The subnet CIDR and gateway IP of the cluster local network
-  * The flavor IDs of the virtual machines in the clusters
+  * The flavor of the virtual machines in the clusters
 - To then create the clusters, run `python3 create_clusters.py`. To delete the clusters, run `python3 destroy_clusters.py`
 
 ### For the network configuration
@@ -112,18 +112,10 @@ python3 remove_test.py
 
 ### Adding network characteristics via Netem
 
-To add inter-cluster network characteristics, visit the `run_on_gateway/netem` folder.
-
-* To add delay on an entire network interface between the Gateway VM and a cluster, run e.g.
+To add inter-cluster network characteristics, visit the `run_on_gateway/netem` folder. Delay on an entire network interface between the Gateway VM and a cluster can be added by e.g. running
 
 ```bash
 sudo tc qdisc add dev ens9 root netem delay 100ms
-```
-
-* To instead add e.g. loss rate (once you added an initial characteristic, you can just use `change` for it)
-
-```bash
-sudo tc qdisc change dev ens9 root netem loss 0.1%
 ```
 
 TC-netem has a whole array of different network characteristics that can be introduced, see e.g. https://wiki.linuxfoundation.org/networking/netem.
@@ -134,8 +126,6 @@ We have supplied a script that can make this easier. Simply run
 sudo ./start.sh
 ```
 
-and choose an option. This script simplifies the work needed to add cluster-to-cluster characteristics  that does not affect the gateway-to-cluster connection. 
+and choose an option. In particular, this script simplifies the work needed to add cluster-to-cluster network characteristics.
 
-At the moment, you can out-of-the-box add delays by changing in the `matrix.csv` file and running option 5). It is important that the size is NxN where N is the amount of allocated clusters. 
-
-To add another network characteristic than delay between clusters, simply change the line 69 in `network_mapping.py` that adds delay to a filtered connection.  
+The delays, jitter, correlation and distribution for the connections can be specified in `delay_matrix.csv` and be applied by running option 5).

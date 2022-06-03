@@ -52,16 +52,6 @@ resource "openstack_networking_secgroup_rule_v2" "ssh_rule" {
   security_group_id = "${openstack_networking_secgroup_v2.gateway_secgroup.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "http_rule" {
-  direction         = "ingress"
-  ethertype         = "IPv4"
-  protocol          = "tcp"
-  port_range_min    = 80
-  port_range_max    = 80
-  remote_ip_prefix  = "0.0.0.0/0"
-  security_group_id = "${openstack_networking_secgroup_v2.gateway_secgroup.id}"
-}
-
 resource "openstack_networking_secgroup_rule_v2" "icmp_rule" {
   direction         = "ingress"
   ethertype         = "IPv4"
@@ -73,7 +63,7 @@ resource "openstack_networking_secgroup_rule_v2" "icmp_rule" {
 resource "openstack_compute_instance_v2" "gateway_instance" {
   name            = "${var.gateway_name}"
   image_name        = "${var.gateway_image}"
-  flavor_id     = "${var.gateway_flavor_id}"
+  flavor_name     = "${var.gateway_flavor_name}"
   key_pair        = "${openstack_compute_keypair_v2.create_keypair.name}"
   security_groups = ["${openstack_networking_secgroup_v2.gateway_secgroup.name}"]
 
